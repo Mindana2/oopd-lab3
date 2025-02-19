@@ -3,35 +3,39 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+public class DrawPanel extends JPanel {
 
     // Just a single image, TODO: Generalize
     BufferedImage volvoImage;
     BufferedImage scaniaImage;
     BufferedImage saabImage;
-
-    // To keep track of a single car's position
-    ArrayList<Point> carPoints = new ArrayList<Point>();
-    Point volvoPoint = new Point(0, 0);
-    Point Saab95Point = new Point(0, 100);
-    Point ScaniaPoint = new Point(0, 200);
-
-
-
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
 
-    // TODO: Make this general for all cars
-    void moveit(Vehicle car, int x, int y){
+    ImagePosition volvo = new ImagePosition(new Volvo240(),volvoImage, new Point(0, 0));
+    ImagePosition scania = new ImagePosition(new Scania(0),scaniaImage, new Point(0, 100));
+    ImagePosition saab = new ImagePosition(new Saab95(false), saabImage, new Point(0, 200));
+    CarController cc = new CarController();
 
-        car.setxPos(x);
-        car.setyPos(y);
+
+    // To keep track of a single car's position
+
+    // TODO: Make this general for all cars
+    void moveit(Vehicle vehicle, int x, int y){
+        if (car.getCurrentSpeed() > 0){
+                car.setPosition(car.getImage(), new Point(x, y));
+            }
+        }
+
+
 
     }
 
