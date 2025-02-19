@@ -21,7 +21,7 @@ public class Workshop<T>{
         return this.numSlots;
     }
 
-    public List<T> getSlotList() {
+    public ArrayList<T> getSlotList() {
         return this.slotList;
     }
 

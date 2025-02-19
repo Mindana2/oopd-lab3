@@ -2,8 +2,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 
 // This panel represents the animated part of the view with the car images.
 
@@ -15,11 +17,12 @@ public class DrawPanel extends JPanel{
     BufferedImage saabImage;
 
     // To keep track of a single car's position
+    ArrayList<Point> carPoints = new ArrayList<Point>();
     Point volvoPoint = new Point(0, 0);
     Point Saab95Point = new Point(0, 100);
     Point ScaniaPoint = new Point(0, 200);
 
-    
+
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
