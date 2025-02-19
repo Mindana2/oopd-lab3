@@ -72,6 +72,8 @@ public abstract class Vehicle implements Movable {
     }
 
 
+
+
     public void move() {
 
         String direction = this.getDirection();

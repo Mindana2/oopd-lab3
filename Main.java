@@ -36,7 +36,7 @@ public class Main {
         System.out.println(truckWorkshop.getSlotList());
 
         System.out.println(truckWorkshop.getSlotList().size());
-
+        System.out.println();
     }
 }
 

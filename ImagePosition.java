@@ -1,13 +1,21 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ImagePosition {
 
-    private BufferedImage image;
+    private final BufferedImage image;
     private Point position;
-    private Vehicle vehicle;
+    private final Vehicle vehicle;
+
+
+    public ImagePosition(Vehicle vehicle, BufferedImage image, Point position) {
+
+        this.image = image;
+        this.position = position;
+        this.vehicle = vehicle;
+
+    }
+
 
     public BufferedImage getImage() {
         return image;
@@ -21,18 +29,8 @@ public class ImagePosition {
         this.position = point;
     }
 
-    public Vehicle getVeichle(){
+    public Vehicle getVehicle(){
         return vehicle;
-    }
-
-
-
-    public ImagePosition(Vehicle vehicle, BufferedImage image, Point position) {
-
-        this.image = image;
-        this.position = position;
-        this.vehicle = vehicle;
-
     }
 
 

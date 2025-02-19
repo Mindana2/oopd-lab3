@@ -30,9 +30,8 @@ public class CarController {
         // Instance of this class
 
         CarController cc = new CarController();
-
         cc.cars.add(new Volvo240());
-        cc.cars.add(new Saab95(true));
+        cc.cars.add(new Saab95(false));
         cc.cars.add(new Scania(0));
 
         // Start a new view and send a reference of self
@@ -47,13 +46,20 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+
             for (Vehicle car : cars) {
-                car.move();
                 int x = (int) Math.round(car.getxPos());
                 int y = (int) Math.round(car.getyPos());
+                if ((0 > car.getxPos() || car.getxPos() > 700) || (0 > car.getyPos() || car.getyPos() > 500)) {
+                    car.turnLeft();
+                    car.turnLeft();
+
+                }
+                car.move();
                 frame.drawPanel.moveit(car, x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
+
             }
         }
     }
