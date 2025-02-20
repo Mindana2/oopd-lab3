@@ -21,7 +21,10 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    public ArrayList<Vehicle> cars = new ArrayList<>();
+    ArrayList<Workshop> workshops = new ArrayList<>();
+    ArrayList<Vehicle> cars = new ArrayList<>();
+
+
 
 
     //methods:
@@ -34,35 +37,53 @@ public class CarController {
         cc.cars.add(new Saab95(false));
         cc.cars.add(new Scania(0));
 
+        cc.workshops.add(new Workshop<Volvo240>(5, 300, 300, Volvo240.class));
+
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
         // Start the timer
         cc.timer.start();
+
     }
 
+
     /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
+     * view to update its images. Change this method to your needs.
+     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 
             for (Vehicle car : cars) {
                 int x = (int) Math.round(car.getxPos());
                 int y = (int) Math.round(car.getyPos());
-                if ((0 > car.getxPos() || car.getxPos() > 700) || (0 > car.getyPos() || car.getyPos() > 500)) {
+                if ((0 > x || x > 700) || (0 > y || y > 500)) {
                     car.turnLeft();
                     car.turnLeft();
-
                 }
+
                 car.move();
-                frame.drawPanel.moveit(car, x, y);
+                frame.drawPanel.moveit(car.getPath(), x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
 
+                for (Workshop workshop: workshops){
+
+                    if (workshopCollisionCheck(car, workshop)){
+                        if (workshop.getType().isInstance(car) && !workshop.getSlotList().contains(car)){
+                            frame.drawPanel.loadWorkshop(car);
+                            workshop.loadCar((Volvo240) car);
+                            continue;
+                        }
+                        car.turnLeft();
+                        car.turnLeft();
+
+                    }
+                }
             }
         }
     }
+
 
     // Calls the gas method for each car once
     void gas(int amount) {
@@ -82,7 +103,7 @@ public class CarController {
 
     void setTurboOn() {
         for (Vehicle car : cars) {
-            if (car instanceof Saab95){
+            if (car instanceof Saab95) {
                 ((Saab95) car).setTurboOn();
             }
 
@@ -91,7 +112,7 @@ public class CarController {
 
     void setTurboOff() {
         for (Vehicle car : cars) {
-            if (car instanceof Saab95){
+            if (car instanceof Saab95) {
                 ((Saab95) car).setTurboOff();
             }
 
@@ -109,15 +130,28 @@ public class CarController {
             car.stopEngine();
         }
     }
+
     void turnRight() {
         for (Vehicle car : cars) {
             car.turnRight();
         }
     }
+
     void turnLeft() {
         for (Vehicle car : cars) {
             car.turnLeft();
 
         }
     }
+
+    boolean workshopCollisionCheck(Vehicle car, Workshop workshop) {
+
+        if (Math.abs((workshop.getxPos() - car.getxPos())) < 100 && Math.abs((workshop.getyPos() - car.getyPos())) < 70 ){
+                return true;
+        }
+
+
+        return false;
+    }
+
 }

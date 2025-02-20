@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public abstract class Car extends Vehicle {
 
-    public Car(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos) {
-        super(nrDoors, color, enginePower, modelName, xPos, yPos);
+    public Car(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos, String path) {
+        super(nrDoors, color, enginePower, modelName, xPos, yPos, path);
 
     }
 
