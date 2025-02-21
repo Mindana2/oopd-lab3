@@ -13,14 +13,14 @@ public abstract class Vehicle implements Movable {
     private final String modelName;
     private double xPos;
     private double yPos;
-    private String path;
+    private final String imagePath;
 
 
     private final List<String> dirs = Arrays.asList("up", "right", "down", "left");
 
     private int dirsIndex;
 
-    public Vehicle(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos, String path) {
+    public Vehicle(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos, String imagePath) {
         this.nrDoors = nrDoors;
         this.color = color;
         this.enginePower = enginePower;
@@ -28,12 +28,12 @@ public abstract class Vehicle implements Movable {
         this.xPos = xPos;
         this.yPos = yPos;
         this.dirsIndex = 0;
-        this.path = path;
+        this.imagePath = imagePath;
 
 
         stopEngine();
     }
-    public String getPath(){ return this.path; }
+    public String getPath(){ return this.imagePath; }
     public String getModelName() {
         return this.modelName;
     }

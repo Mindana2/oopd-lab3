@@ -6,7 +6,7 @@ public class Scania extends Truck implements Tippable{
 
 
     public Scania(double tipperAngle) {
-        super(2, Color.red, 100.0, "Scania", 0d, 200d, "pics/Scania.jpg");
+        super(2, Color.red, 100.0, "Scania", 0d, 200d,"pics/Scania.jpg");
         stopEngine();
         this.tipperAngle = tipperAngle;
 

@@ -22,7 +22,7 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<Workshop> workshops = new ArrayList<>();
-    ArrayList<Vehicle> cars = new ArrayList<>();
+    private ArrayList<Vehicle> cars = new ArrayList<>();
 
 
 
@@ -72,7 +72,7 @@ public class CarController {
                     if (workshopCollisionCheck(car, workshop)){
                         if (workshop.getType().isInstance(car) && !workshop.getSlotList().contains(car)){
                             frame.drawPanel.loadWorkshop(car);
-                            workshop.loadCar((Volvo240) car);
+                            workshop.loadCar(car);
                             continue;
                         }
                         car.turnLeft();
