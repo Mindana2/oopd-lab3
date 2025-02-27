@@ -54,6 +54,7 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 
+
             for (Vehicle car : cars) {
                 int x = (int) Math.round(car.getxPos());
                 int y = (int) Math.round(car.getyPos());
@@ -61,6 +62,7 @@ public class CarController {
                     car.turnLeft();
                     car.turnLeft();
                 }
+
 
                 car.move();
                 frame.drawPanel.moveit(car.getPath(), x, y);
@@ -140,6 +142,14 @@ public class CarController {
     void turnLeft() {
         for (Vehicle car : cars) {
             car.turnLeft();
+
+        }
+    }
+    void adjustTipper(int amount) {
+        for (Vehicle car : cars){
+            if (car instanceof Scania) {
+                ((Scania) car).adjustTipper(amount);
+            }
 
         }
     }

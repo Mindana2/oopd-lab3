@@ -44,7 +44,7 @@ public class Scania extends Truck implements Tippable{
             super.move();
         }
         else {
-            System.out.println("Tipper angle must be 0.0 before moving");
+
         }
         }
     }

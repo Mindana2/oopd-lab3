@@ -4,6 +4,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.attribute.FileOwnerAttributeView;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -26,15 +27,19 @@ public class CarView extends JFrame{
 
     JPanel gasPanel = new JPanel();
     JSpinner gasSpinner = new JSpinner();
+    JSpinner tipperSpinner = new JSpinner();
     int gasAmount = 0;
+    int tipperAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
+    JLabel tipperLabel = new JLabel("Tipper angle");
+
+
 
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
     JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
+    JButton adjustBedButton = new JButton("Adjust Bed");
     JButton turnRightButton = new JButton("Turn Right");
     JButton turnLeftButton = new JButton("Turn Left");
     JButton startButton = new JButton("Start all cars");
@@ -58,21 +63,38 @@ public class CarView extends JFrame{
 
 
 
-        SpinnerModel spinnerModel =
+        SpinnerModel gasspinnerModel =
                 new SpinnerNumberModel(0, //initial value
                         0, //min
                         100, //max
                         1);//step
-        gasSpinner = new JSpinner(spinnerModel);
+
+        SpinnerModel tipspinnerModel =
+                new SpinnerNumberModel(0, //initial value
+                        0, //min
+                        70, //max
+                        1);//step
+        gasSpinner = new JSpinner(gasspinnerModel);
+        tipperSpinner = new JSpinner(tipspinnerModel);
         gasSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 gasAmount = (int) ((JSpinner)e.getSource()).getValue();
             }
         });
+        tipperSpinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                tipperAmount = (int) ((JSpinner)e.getSource()).getValue();
+            }
+        });
 
-        gasPanel.setLayout(new BorderLayout());
-        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
-        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
+        gasPanel.setLayout(new FlowLayout());
+        gasPanel.setPreferredSize(new Dimension(100, 100));
+
+        gasPanel.add(gasLabel);
+        gasPanel.add(gasSpinner);
+
+        gasPanel.add(tipperLabel);
+        gasPanel.add(tipperSpinner);
 
         this.add(gasPanel);
 
@@ -80,12 +102,11 @@ public class CarView extends JFrame{
 
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
-        controlPanel.add(liftBedButton, 2);
+        controlPanel.add(adjustBedButton, 2);
         controlPanel.add(turnRightButton, 3);
         controlPanel.add(brakeButton, 4);
         controlPanel.add(turboOffButton, 5);
-        controlPanel.add(lowerBedButton, 6);
-        controlPanel.add(turnLeftButton, 7);
+        controlPanel.add(turnLeftButton, 6);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -93,13 +114,13 @@ public class CarView extends JFrame{
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X/5-15,200));
+        startButton.setPreferredSize(new Dimension(X/6-15,200));
         this.add(startButton);
 
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X/5-15,200));
+        stopButton.setPreferredSize(new Dimension(X/6-15,200));
         this.add(stopButton);
 
         // This actionListener is for the gas button only
@@ -155,6 +176,12 @@ public class CarView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 carC.turnRight();
+            }
+        });
+        adjustBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.adjustTipper(tipperAmount);
             }
         });
 
