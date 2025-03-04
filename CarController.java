@@ -4,9 +4,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /*
-* This class represents the Controller part in the MVC pattern.
-* Its responsibilities are to listen to the View and responds in an appropriate manner by
-* modifying the model state and the updating the view.
+ * This class represents the Controller part in the MVC pattern.
+ * Its responsibilities are to listen to the View and responds in an appropriate manner by
+ * modifying the model state and the updating the view.
  */
 
 public class CarController {
@@ -157,7 +157,7 @@ public class CarController {
     boolean workshopCollisionCheck(Vehicle car, Workshop workshop) {
 
         if (Math.abs((workshop.getxPos() - car.getxPos())) < 100 && Math.abs((workshop.getyPos() - car.getyPos())) < 70 ){
-                return true;
+            return true;
         }
 
 

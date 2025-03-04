@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Workshop<T>{
+public class Workshop<T extends Vehicle> {
 
     private final int numSlots;
     private ArrayList<T> slotList;
@@ -19,8 +19,9 @@ public class Workshop<T>{
         this.type = type;
 
 
-
-
+//        for (int i = 0; i < numSlots; i++) {
+//            slotList.add(null);
+//        }
     }
 
 
@@ -28,11 +29,18 @@ public class Workshop<T>{
         return this.numSlots;
     }
 
-    public int getxPos(){ return this.xPos;}
 
-    public int getyPos(){ return this.yPos;}
+    public int getxPos() {
+        return this.xPos;
+    }
 
-    public Class<T> getType(){ return this.type;}
+    public int getyPos() {
+        return this.yPos;
+    }
+
+    public Class<T> getType() {
+        return this.type;
+    }
 
     public ArrayList<T> getSlotList() {
         return this.slotList;
@@ -44,12 +52,17 @@ public class Workshop<T>{
             this.slotList.add(car);
             System.out.println(car + " loaded");
             return;
+//        //for (int x = 0; x < this.getNumSlots(); x++) {
+//
+//        //    if (this.slotList.get(x) == null) {
+//                this.slotList.set(x, car);
+//
+//                return;
+//            }
 
         }
         System.out.println("Workshop is full");
     }
-
-
     public void unloadCar(T car) {
 
         if (this.slotList.contains(car)) {

@@ -7,7 +7,7 @@ class VehicleTest {
 
     Saab95 carTest = new Saab95(false);
     Saab95 saab95 = new Saab95(false);
-    Workshop<Car> carworkshop = new Workshop<>(10, 0,0, Car.class);
+    Workshop<Car> carworkshop = new Workshop<>(10, 200, 200, Car.class);
     CarTransport carTransport = new CarTransport(false, 5);
     Scania scania = new Scania(0);
 

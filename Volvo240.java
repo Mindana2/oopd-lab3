@@ -7,15 +7,12 @@ public class Volvo240 extends Car {
         super(4, Color.black, 100.0, "Volvo240", 0d, 0d, "pics/Volvo240.jpg");
         stopEngine();
 
-
     }
 
 
     private double speedFactor() {
         return this.getEnginePower() * 0.01 * trimFactor;
     }
-
-
 
 
     @Override

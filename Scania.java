@@ -1,12 +1,12 @@
 import java.awt.*;
 
-public class Scania extends Truck implements Tippable{
+public class Scania extends Truck implements Tippable {
 
     private double tipperAngle;
 
 
     public Scania(double tipperAngle) {
-        super(2, Color.red, 100.0, "Scania", 0d, 200d,"pics/Scania.jpg");
+        super(2, Color.red, 100.0, "Scania", 0d, 200d, "pics/Scania.jpg");
         stopEngine();
         this.tipperAngle = tipperAngle;
 
@@ -18,7 +18,7 @@ public class Scania extends Truck implements Tippable{
 
 
     @Override
-    public void adjustTipper(int angle){
+    public void adjustTipper(int angle) {
 
         if (0 <= angle && angle <= 70 && this.getCurrentSpeed() == 0) {
             this.tipperAngle = angle;
@@ -37,16 +37,13 @@ public class Scania extends Truck implements Tippable{
     }
 
 
-
     @Override
     public void move() {
         if (this.tipperAngle == 0) {
             super.move();
-        }
-        else {
 
-        }
         }
     }
 
+}
 

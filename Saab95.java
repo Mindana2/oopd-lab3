@@ -1,3 +1,4 @@
+
 import java.awt.*;
 
 public class Saab95 extends Car {
@@ -41,11 +42,11 @@ public class Saab95 extends Car {
     @Override
     public void decrementSpeed(double amount){
 
-            this.setCurrentSpeed(this.getCurrentSpeed() - speedFactor() * amount);
-            if (this.getCurrentSpeed() < 0) {
-                this.setCurrentSpeed(0);
-            }
+        this.setCurrentSpeed(this.getCurrentSpeed() - speedFactor() * amount);
+        if (this.getCurrentSpeed() < 0) {
+            this.setCurrentSpeed(0);
         }
+    }
 
 }
 
