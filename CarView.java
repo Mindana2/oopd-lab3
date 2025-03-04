@@ -14,11 +14,12 @@ import java.nio.file.attribute.FileOwnerAttributeView;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame implements Observer{
+public class CarView extends JFrame{
     private static final int X = 800;
     private static final int Y = 800;
 
     // The controller member
+    CarController carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -36,8 +37,8 @@ public class CarView extends JFrame implements Observer{
 
     JButton gasButton = new JButton("Gas");
     JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Turbo on");
-    JButton turboOffButton = new JButton("Turbo off");
+    JButton turboOnButton = new JButton("Saab Turbo on");
+    JButton turboOffButton = new JButton("Saab Turbo off");
     JButton adjustBedButton = new JButton("Adjust Bed");
     JButton turnRightButton = new JButton("Turn Right");
     JButton turnLeftButton = new JButton("Turn Left");
@@ -45,8 +46,8 @@ public class CarView extends JFrame implements Observer{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename, CarModel model){
-        model.observers.add(this);
+    public CarView(String framename, CarController cc){
+        this.carC = cc;
         initComponents(framename);
     }
 
@@ -124,7 +125,65 @@ public class CarView extends JFrame implements Observer{
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.startEngine();
+            }
+        });
 
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.stopEngine();
+            }
+        });
+
+        gasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.gas(gasAmount);
+            }
+        });
+
+        brakeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.brake(gasAmount);
+            }
+        });
+
+        turboOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.setTurboOn();
+            }
+        });
+
+        turboOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.setTurboOff();
+            }
+        });
+        turnLeftButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.turnLeft();
+            }
+        });
+        turnRightButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.turnRight();
+            }
+        });
+        adjustBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.adjustTipper(tipperAmount);
+            }
+        });
 
 
 
@@ -139,10 +198,5 @@ public class CarView extends JFrame implements Observer{
         this.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    @Override
-    public void buttonPressed(JButton button) {
-
     }
 }
