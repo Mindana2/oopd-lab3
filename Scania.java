@@ -4,10 +4,12 @@ public class Scania extends Truck implements Tippable{
 
     private double tipperAngle;
 
+
     public Scania(double tipperAngle) {
-        super(2, Color.red, 100.0, "Scania", 0d, 0d);
+        super(2, Color.red, 100.0, "Scania", 0d, 200d,"pics/Scania.jpg");
         stopEngine();
         this.tipperAngle = tipperAngle;
+
     }
 
     public double getTipperAngle() {
@@ -42,7 +44,7 @@ public class Scania extends Truck implements Tippable{
             super.move();
         }
         else {
-            System.out.println("Tipper angle must be 0.0 before moving");
+
         }
         }
     }

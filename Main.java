@@ -1,44 +1,81 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class Main {
+
+    // The frame that represents this instance View of the MVC pattern
+    private static CarView frame;
+    private static CarModel model;
+    private static CarController cc;
+    // The delay (ms) corresponds to 20 updates a sec (hz)
+    private static final int delay = 50;
+    // The timer is started with a listener (see below) that executes the statements
+    // each step between delays.
+    private static Timer timer;
+
+
     public static void main(String[] args) {
-
-        Scania scania = new Scania(0.0);
-
-        Saab95 saab95 = new Saab95(false);
-        Volvo240 volvo240 = new Volvo240();
-
-
-        CarTransport cartransport = new CarTransport(false, 10);
-        Workshop<Volvo240> volvo240Workshop = new Workshop<>(10);
-        Workshop<Vehicle> generic = new Workshop<>(10);
-        Workshop<Car> carWorkshop = new Workshop<>(10);
-        Workshop<Truck> truckWorkshop = new Workshop<>(10);
+        // Instance of this class
+        timer = new Timer(delay, new TimerListener());
+        // A list of cars, modify if needed
+        model = new CarModel();
+        frame = new CarView("CarSim 1.0", model);
+        cc = new CarController();
 
 
 
-        truckWorkshop.unloadCar(scania);
-        truckWorkshop.loadCar(scania);
-        truckWorkshop.loadCar(cartransport);
-        truckWorkshop.loadCar(scania);
-        truckWorkshop.loadCar(cartransport);
-        truckWorkshop.loadCar(scania);
-        truckWorkshop.loadCar(cartransport);
-        truckWorkshop.loadCar(scania);
-        truckWorkshop.loadCar(cartransport);
-        truckWorkshop.loadCar(scania);
-        truckWorkshop.loadCar(cartransport);
-        truckWorkshop.loadCar(scania);
+
+        model.cars.add(new Volvo240());
+        model.cars.add(new Saab95(false));
+        model.cars.add(new Scania(0));
 
 
-        System.out.println(truckWorkshop.getSlotList());
-        truckWorkshop.unloadCar(scania);
-        System.out.println(truckWorkshop.getSlotList());
+        model.workshops.add(new Workshop<Volvo240>(5, 300, 300, Volvo240.class));
 
-        System.out.println(truckWorkshop.getSlotList().size());
+        // Start a new view and send a reference of self
 
+
+        // Start the timer
+        timer.start();
+    }
+    private static class TimerListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+
+            for (Vehicle car : model.cars) {
+                int x = (int) Math.round(car.getxPos());
+                int y = (int) Math.round(car.getyPos());
+                if ((0 > x || x > 700) || (0 > y || y > 500)) {
+                    car.turnLeft();
+                    car.turnLeft();
+                }
+
+
+                car.move();
+                frame.drawPanel.moveit(car.getPath(), x, y);
+                // repaint() calls the paintComponent method of the panel
+                frame.drawPanel.repaint();
+
+                for (Workshop workshop : model.workshops) {
+
+                    if (model.workshopCollisionCheck(car, workshop)) {
+                        if (workshop.getType().isInstance(car) && !workshop.getSlotList().contains(car)) {
+                            frame.drawPanel.loadWorkshop(car);
+                            workshop.loadCar(car);
+                            continue;
+                        }
+                        car.turnLeft();
+                        car.turnLeft();
+
+                    }
+                }
+            }
+        }
     }
 }
+
 
 
 

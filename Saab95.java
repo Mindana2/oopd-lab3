@@ -5,10 +5,11 @@ public class Saab95 extends Car {
     private boolean turboOn;
 
     public Saab95(boolean turboOn) {
-        super(2, Color.red, 125.0, "Saab95", 0d, 0d);
+        super(2, Color.red, 125.0, "Saab95", 0d, 100d, "pics/Saab95.jpg");
         this.turboOn = turboOn;
         stopEngine();
     }
+
 
 
     public void setTurboOn() {

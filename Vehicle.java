@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -12,12 +13,14 @@ public abstract class Vehicle implements Movable {
     private final String modelName;
     private double xPos;
     private double yPos;
+    private final String imagePath;
+
 
     private final List<String> dirs = Arrays.asList("up", "right", "down", "left");
 
     private int dirsIndex;
 
-    public Vehicle(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos) {
+    public Vehicle(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos, String imagePath) {
         this.nrDoors = nrDoors;
         this.color = color;
         this.enginePower = enginePower;
@@ -25,10 +28,12 @@ public abstract class Vehicle implements Movable {
         this.xPos = xPos;
         this.yPos = yPos;
         this.dirsIndex = 0;
+        this.imagePath = imagePath;
+
 
         stopEngine();
     }
-
+    public String getPath(){ return this.imagePath; }
     public String getModelName() {
         return this.modelName;
     }
@@ -72,6 +77,8 @@ public abstract class Vehicle implements Movable {
     }
 
 
+
+
     public void move() {
 
         String direction = this.getDirection();
@@ -97,14 +104,14 @@ public abstract class Vehicle implements Movable {
     }
 
     public void incrementSpeed(double amount) {
-        this.setCurrentSpeed(Math.min(getCurrentSpeed() + 10 * amount, this.getEnginePower()));
+        this.setCurrentSpeed(Math.min(getCurrentSpeed() + 1 * amount, this.getEnginePower()));
         if (this.getCurrentSpeed() > this.getEnginePower()) {
             this.setCurrentSpeed(this.getEnginePower());
         }
     }
 
     public void decrementSpeed(double amount) {
-        this.setCurrentSpeed(Math.max(getCurrentSpeed() -10 * amount, 0));
+        this.setCurrentSpeed(Math.max(getCurrentSpeed() -1 * amount, 0));
         if (this.getCurrentSpeed() < 0) {
             this.setCurrentSpeed(0);
         }

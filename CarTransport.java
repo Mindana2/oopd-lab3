@@ -10,7 +10,7 @@ public class CarTransport extends Truck implements Loadable, Tippable{
 
 
     public CarTransport(boolean rampDown, int numSlots) {
-        super(2, Color.black, 100.0, "Car Transport", 0d, 0d);
+        super(2, Color.black, 100.0, "Car Transport", 0d, 0d, null);
         stopEngine();
         this.rampDown = rampDown;
         this.slotList = new Car[numSlots];

@@ -2,55 +2,95 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+public class DrawPanel extends JPanel {
 
     // Just a single image, TODO: Generalize
-    BufferedImage volvoImage;
-    // To keep track of a single car's position
-    Point volvoPoint = new Point();
+    CarModel model;
+    
 
-    BufferedImage volvoWorkshopImage;
-    Point volvoWorkshopPoint = new Point(300,300);
-
-    // TODO: Make this general for all cars
-    void moveit(int x, int y){
-        volvoPoint.x = x;
-        volvoPoint.y = y;
-    }
-
-    // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
+
+
+        Image volvo = new Image(0, 0, true, "pics/Volvo240.jpg");
+        Image scania = new Image(0, 100, true, "pics/Scania.jpg");
+        Image saab = new Image(0, 200, true, "pics/Saab95.jpg");
+        Image volvoworkshop = new Image(300, 300 ,true, "pics/VolvoBrand.jpg");
+
+        model.ImageList.add(volvo);
+        model.ImageList.add(saab);
+        model.ImageList.add(scania);
+        model.ImageList.add(volvoworkshop);
+
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
-        this.setBackground(Color.green);
-        // Print an error message in case file is not found with a try/catch block
-        try {
-            // You can remove the "pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
+        this.setBackground(Color.lightGray);
+    }
 
-            // Remember to right-click src New -> Package -> name: pics -> MOVE *.jpg to pics.
-            // if you are starting in IntelliJ.
-            volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-            volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
-        } catch (IOException ex)
-        {
+
+    public BufferedImage loadImage(String path) {
+
+        try {
+            return ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream(path)));
+
+        } catch (IOException ex) {
+            System.out.println("error");
             ex.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
+
+
+    // To keep track of a single car's position
+
+    // TODO: Make this general for all cars
+    void moveit(String path, int x, int y) {
+
+        for (Image image : model.ImageList){
+            if (Objects.equals(path, image.getPath())){
+                image.setxPos(x);
+                image.setyPos(y);
+            }
+        }
+    }
+    void loadWorkshop(Vehicle car){
+
+        for (Image image : model.ImageList){
+            if (Objects.equals(car.getPath(), image.getPath())) {
+                image.setVisibility(false);
+            }
         }
 
     }
+
+
+    // Initializes the panel and reads the images
+
 
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
-        g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
+
+
+        for (Image image : model.ImageList) {
+            if (image.getVisibility()) {
+                g.drawImage(loadImage(image.getPath()), image.getxPos(), image.getyPos(), null);
+            }
+        }
+
+
     }
 }

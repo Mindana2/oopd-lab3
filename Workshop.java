@@ -6,14 +6,21 @@ public class Workshop<T>{
 
     private final int numSlots;
     private ArrayList<T> slotList;
+    private int xPos;
+    private int yPos;
+    private Class<T> type;
 
-    public Workshop(int numSlots) {
+
+    public Workshop(int numSlots, int xPos, int yPos, Class<T> type) {
         this.slotList = new ArrayList<>(numSlots);
         this.numSlots = numSlots;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.type = type;
 
-//        for (int i = 0; i < numSlots; i++) {
-//            slotList.add(null);
-//        }
+
+
+
     }
 
 
@@ -21,7 +28,13 @@ public class Workshop<T>{
         return this.numSlots;
     }
 
-    public List<T> getSlotList() {
+    public int getxPos(){ return this.xPos;}
+
+    public int getyPos(){ return this.yPos;}
+
+    public Class<T> getType(){ return this.type;}
+
+    public ArrayList<T> getSlotList() {
         return this.slotList;
     }
 
@@ -31,13 +44,7 @@ public class Workshop<T>{
             this.slotList.add(car);
             System.out.println(car + " loaded");
             return;
-//        //for (int x = 0; x < this.getNumSlots(); x++) {
-//
-//        //    if (this.slotList.get(x) == null) {
-//                this.slotList.set(x, car);
-//
-//                return;
-//            }
+
         }
         System.out.println("Workshop is full");
     }
